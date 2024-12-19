@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apartment Price Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom style -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Main Content -->
+    <div id="main-content">
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Price Predictor</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#predict">Prediction</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Landing Page Section -->
+        <section id="home" class="bg-primary text-light text-center py-5">
+            <div class="container">
+                <h1>Welcome to Nairobi Apartment Price Predictor</h1>
+                <p class="lead">Predict the price of your dream apartment with ease!</p>
+            </div>
+        </section>
+  
+
+        <!-- Prediction Page Section -->
+        <section id="predict" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-4">Predict Apartment Price</h2>
+                <form id="prediction-form" onsubmit="return false;">
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <select id="location" class="form-select" required>
+                            <option value="">Select a location</option>
+                            <option value="0">Ruaka </option>
+                            <option value="1">Utawala</option>
+                            <option value="2">Kileleshwa</option>
+                            <option value="3">Lavington</option>
+                            <option value="4">Westlands</option>
+                            <option value="5">Ruiru</option>
+                            <option value="6">Juja</option>
+                            <option value="7">Syokimau</option>
+                            <option value="8">Muthaiga</option>
+                            <option value="9">Kilimani</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="distance" class="form-label">Distance to CBD (km)</label>
+                        <input type="number" id="distance" class="form-control" placeholder="Enter distance in km" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="floor-size" class="form-label">Floor Size (sqm)</label>
+                        <input type="number" id="floor-size" class="form-control" placeholder="Enter floor size in sqm" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bedrooms" class="form-label">Number of Bedrooms</label>
+                        <input type="number" id="bedrooms" class="form-control" min="1" max="4" placeholder="Enter number of bedrooms" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bathrooms" class="form-label">Number of Bathrooms</label>
+                        <input type="number" id="bathrooms" class="form-control" min="1" max="4" placeholder="Enter number of bathrooms" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Amenities</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="garbage" id="amenity1">
+                            <label class="form-check-label" for="amenity1">Garbage Collection</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="garden" id="amenity2">
+                            <label class="form-check-label" for="amenity2">Garden</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="gym" id="amenity3">
+                            <label class="form-check-label" for="amenity3">Gym</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="parking" id="amenity4">
+                            <label class="form-check-label" for="amenity4">Parking</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="pool" id="amenity5">
+                            <label class="form-check-label" for="amenity5">Swimming Pool</label>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="predictPrice()">Predict Price</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Contact Page Section -->
+        <section id="contact" class="bg-light py-5">
+            <div class="container">
+                <h2 class="text-center mb-4">Contact Us</h2>
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Submit</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-light py-3">
+        <div class="container text-center">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#predict">Prediction</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <p class="mb-0">&copy; 2024 Nairobi Apartment Price Prediction. Created by <i>Thallium </i> | All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom js -->
+    <script src="static/js/script.js"></script>
+</body>
+
+</html>
